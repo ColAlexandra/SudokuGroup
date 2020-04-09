@@ -6,6 +6,26 @@ namespace SudokuApp
 {
     class Sudoku
     {
+
+        public int[,] PlayerBoard(int[,] board)
+        {
+            int[,] newBoard = new int[9, 9];
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    if (board[i,j]==0) 
+                    {
+                        newBoard[i, j] = -1;
+                    }
+                    
+                }
+            }
+            
+
+            return newBoard;
+        }
+
         public int[,] BoardForPrint(int[,] board)
         {
             int[,] newBoard = new int[9, 9];
