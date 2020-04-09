@@ -7,17 +7,92 @@ namespace SudokuApp
     class Sudoku
     {
 
-        public void PrintBoard(int[,] board, int[,] printForBoard, int[,] playerBoard)
+        public void PrintBoard(int[,] board, int[,] boardForPrint, int[,] playerBoard)
         {
             string sepCol = "   ";
             string sepLin = " | ";
             int lng = sepCol.Length * 9;
             FirstLine(sepCol);
+
+            for (int i = 0; i < 9; i++)
+            {
+                if (i == 3 || i == 6)
+                {
+                    Console.WriteLine();
+                    PrintLine(sepCol, lng);
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine();
+                }
+
+                Console.Write(" ");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write(i+1);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(" ");
+                
+                for (int j = 0; j < 9; j++)
+                {
+                    if (j == 3 || j == 6)
+                    {
+                        Console.Write(sepLin);
+                    }
+                    else
+                    {
+                        Console.Write(sepCol);
+                    }
+                    Console.Write(" ");
+                    PrintElement(i, j, board, boardForPrint, playerBoard);
+                    Console.Write(" ");
+
+                }
+
+
+            }
+            Console.WriteLine();
+
         }
 
-        public void PrintElement(int[,] board, int[,] printForBoard, int[,] playerBoard)
+        public void PrintElement(int x, int y, int[,] board, int[,] printForBoard, int[,] playerBoard)
         {
+            if (board[x,y] > 0 && board[x, y] < 9) 
+            {
+                Console.Write(board[x,y]);
+            }
+            else if(playerBoard[x,y] > 0 && playerBoard[x, y] < 9)
+            {
+                if (playerBoard[x, y] == board[x, y]) 
+                {                   
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write(playerBoard[x,y]);
+                    Console.ForegroundColor = ConsoleColor.White;                   
+                }
+                else
+                {                   
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write(playerBoard[x, y]);
+                    Console.ForegroundColor = ConsoleColor.White;                    
+                }
+            }
+            else
+            {
+                Console.Write(" ");
+            }
 
+        }
+
+
+        public void PrintLine(string sepCol, int lng)
+        {
+            Console.Write(sepCol);
+            for (int i = 0; i < lng; i++)
+            {
+                Console.Write("_ ");
+            }
+            Console.WriteLine();
         }
 
         public void FirstLine(string sepCol)
@@ -29,7 +104,7 @@ namespace SudokuApp
                 Console.Write(sepCol);
                 Console.Write(" ");
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.Write(i);
+                Console.Write(i+1);
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write(" ");
             }
