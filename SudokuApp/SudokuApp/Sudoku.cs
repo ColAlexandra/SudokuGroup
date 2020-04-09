@@ -287,5 +287,247 @@ namespace SudokuApp
             }
             return finalA;
         }
+
+        public bool ResultOfAll(int[,] board)
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    if (!ResultOfOne(board, i, j))
+                    {
+                        return false;
+                    }
+
+                }
+            }
+
+            return true;
+        }
+
+        public bool ResultOfOne(int[,] board, int col, int row)
+        {
+
+            for (int i = 0; i < 9; i++)
+            {
+                if (i == col)
+                {
+                    continue;
+                }
+
+                if (board[col, row] == board[i, row])
+                {
+                    return false;
+                }
+            }
+
+            for (int i = 0; i < 9; i++)
+            {
+                if (i == row)
+                {
+                    continue;
+                }
+                if (board[col, row] == board[col, i])
+                {
+                    return false;
+                }
+            }
+
+            int colMin;
+            int colMax;
+            int rowMin;
+            int rowMax;
+
+            if (col < 3)
+            {
+                colMin = 0;
+                colMax = 2;
+            }
+            else if (col >= 3 && col < 6)
+            {
+                colMin = 3;
+                colMax = 5;
+            }
+            else
+            {
+                colMin = 6;
+                colMax = 8;
+            }
+
+            if (row < 3)
+            {
+                rowMin = 0;
+                rowMax = 2;
+            }
+            else if (row >= 3 && row < 6)
+            {
+                rowMin = 3;
+                rowMax = 5;
+            }
+            else
+            {
+                rowMin = 6;
+                rowMax = 8;
+            }
+
+            for (int i = colMin; i < colMax; i++)
+            {
+                for (int j = rowMin; j < rowMax; j++)
+                {
+                    if (i == col && j == row)
+                    {
+                        continue;
+                    }
+                    if (board[col, row] == board[i, j])
+                    {
+                        return false;
+                    }
+
+
+                }
+            }
+
+            return true;
+
+        }
+
+        public bool CheckIfNumIsIn(int[,] board, int row, int col, int num)
+        {
+
+            for (int i = 0; i < 9; i++)
+            {
+                if (i == col)
+                {
+                    continue;
+                }
+
+                if (num == board[row, i])
+                {
+                    return false;
+                }
+            }
+
+            for (int i = 0; i < 9; i++)
+            {
+                if (i == row)
+                {
+                    continue;
+                }
+                if (num == board[i, col])
+                {
+                    return false;
+                }
+            }
+
+            int colMin;
+            int colMax;
+            int rowMin;
+            int rowMax;
+
+            if (col < 3)
+            {
+                colMin = 0;
+                colMax = 2;
+            }
+            else if (col >= 3 && col < 6)
+            {
+                colMin = 3;
+                colMax = 5;
+            }
+            else
+            {
+                colMin = 6;
+                colMax = 8;
+            }
+
+            if (row < 3)
+            {
+                rowMin = 0;
+                rowMax = 2;
+            }
+            else if (row >= 3 && row < 6)
+            {
+                rowMin = 3;
+                rowMax = 5;
+            }
+            else
+            {
+                rowMin = 6;
+                rowMax = 8;
+            }
+
+            for (int i = colMin; i < colMax; i++)
+            {
+                for (int j = rowMin; j < rowMax; j++)
+                {
+                    if (i == col && j == row)
+                    {
+                        continue;
+                    }
+                    if (num == board[j, i])
+                    {
+                        return false;
+                    }
+
+
+                }
+            }
+
+            return true;
+
+        }
+
+        public int[,] CreateNewBoard2()
+        {   
+            
+            allAgain:
+            int[,] board = new int[9, 9];
+            int x = 0;
+            for (int i = 0; i < 9; i++)
+            {
+                again:
+
+                for (int j = 0; j < 9; j++)
+                {
+                    int l = 0;
+                    int[] numbers = new int[9];
+                    for (int k = 1; k <= 9; k++)
+                    {
+                        
+                        
+                        if(CheckIfNumIsIn(board, i, j, k))
+                        {
+                            numbers[l] = k;
+                            l++;
+                            
+                        }
+                        Random random = new Random();
+                        int rng = random.Next(0,l);
+                        board[i, j] = numbers[rng];
+                        
+                    }
+                    x++;
+                    
+                    if(x > 10000) { goto allAgain; }
+                    if (l == 0) { goto again; } 
+
+                }
+
+                
+
+            }
+
+            bool asd = ResultOfAll(board);
+            
+            if (asd)
+            {
+                return board;
+            }
+            else
+            {
+                goto allAgain;
+            }
+        }
+
     }
 }
