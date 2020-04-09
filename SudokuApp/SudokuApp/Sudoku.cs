@@ -508,7 +508,7 @@ namespace SudokuApp
                     }
                     x++;
                     
-                    if(x > 10000) { goto allAgain; }
+                    if(x > 500) { goto allAgain; }
                     if (l == 0) { goto again; } 
 
                 }
