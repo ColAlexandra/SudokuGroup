@@ -6,11 +6,22 @@ namespace SudokuApp
 {
     class Sudoku
     {
-        public int[,] newBoard()
+        public int[,] NewBoard()
         {
             int[,] board = new int[9, 9];
             int[] row = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            int[] code = new int[] { 0, 3, 6, 1, 4, 7, 2, 5, 8 };
             row = Shuffle(row);
+            
+            for (int i = 0; i < 9; i++)
+            {
+                int[] newRow = MoveLeft(row, code[i]);
+                for (int j = 0; j < 9; j++)
+                {
+                    board[i, j] = newRow[j];
+                }
+            }
+
             return board;
         }
 
