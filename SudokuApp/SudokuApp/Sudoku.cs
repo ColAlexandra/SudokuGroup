@@ -6,6 +6,57 @@ namespace SudokuApp
 {
     class Sudoku
     {
+        public int[,] BoardForPrint(int[,] board)
+        {
+            int[,] newBoard = new int[9, 9];
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    newBoard[i, j] = board[i, j];
+                }
+            }
+            int nMin = 4;
+            int nMax = 6;
+            int[] code = new int[] { 0, 3, 6 };
+            for (int i = 0; i < code.Length; i++)
+            {
+                for (int j = 0; j < code.Length; j++)
+                {
+                    Random rng = new Random();
+                    //code[i],code[j]
+                    int n = rng.Next(nMin, nMax);
+                    newBoard = RemoveElementsFromSquare(newBoard, code[i], code[j], n);
+                }
+            }
+
+            return newBoard;
+        }
+
+        public int[,] RemoveElementsFromSquare(int[,] board, int x, int y, int n) 
+        {
+            int[,] newBoard = new int[9, 9];
+            newBoard = board;
+            int i = 0;
+            while(i < n)
+            {
+                Random rng = new Random();
+                int numX = rng.Next(x, x + 3);
+                int numY = rng.Next(y, y + 3);
+                if(newBoard[numX,numY] != 0)
+                {
+                    newBoard[numX, numY] = 0;
+                    i++;
+                }
+            }
+
+
+
+            return newBoard;
+        }
+
+        
+            
         public int[,] NewBoard()
         {
             int[,] board = new int[9, 9];
