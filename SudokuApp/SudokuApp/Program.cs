@@ -14,7 +14,7 @@ namespace SudokuApp
             int[,] playerBoard = sudoku.PlayerBoard(boardForPrint);
 
             sudoku.PrintBoard(board, boardForPrint, playerBoard);
-            
+
             //for (int i = 0; i < 9; i++)
             //{
             //    for (int j = 0; j < 9; j++)

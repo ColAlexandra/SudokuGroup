@@ -58,9 +58,9 @@ namespace SudokuApp
 
         public void PrintElement(int x, int y, int[,] board, int[,] printForBoard, int[,] playerBoard)
         {
-            if (board[x,y] > 0 && board[x, y] < 9) 
+            if (printForBoard[x,y] > 0 && printForBoard[x, y] < 9) 
             {
-                Console.Write(board[x,y]);
+                Console.Write(printForBoard[x,y]);
             }
             else if(playerBoard[x,y] > 0 && playerBoard[x, y] < 9)
             {
