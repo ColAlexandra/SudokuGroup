@@ -4,12 +4,16 @@ namespace SudokuApp
 {
     class Program
     {
+        
+
         static void Main(string[] args)
         {
             Sudoku sudoku = new Sudoku();
             int[,] board = sudoku.NewBoard();
             int[,] boardForPrint = sudoku.BoardForPrint(board);
             int[,] playerBoard = sudoku.PlayerBoard(boardForPrint);
+
+            sudoku.PrintBoard(board, boardForPrint, playerBoard);
 
             for (int i = 0; i < 9; i++)
             {
@@ -37,9 +41,6 @@ namespace SudokuApp
                 }
                 Console.WriteLine();
             }
-
-
-
 
             Console.WriteLine("Hello World!");
 

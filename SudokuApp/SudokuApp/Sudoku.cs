@@ -7,6 +7,34 @@ namespace SudokuApp
     class Sudoku
     {
 
+        public void PrintBoard(int[,] board, int[,] printForBoard, int[,] playerBoard)
+        {
+            string sepCol = "   ";
+            string sepLin = " | ";
+            int lng = sepCol.Length * 9;
+            FirstLine(sepCol);
+        }
+
+        public void PrintElement(int[,] board, int[,] printForBoard, int[,] playerBoard)
+        {
+
+        }
+
+        public void FirstLine(string sepCol)
+        {
+            Console.Write(sepCol);
+
+            for (int i = 0; i < 9; i++)
+            {
+                Console.Write(sepCol);
+                Console.Write(" ");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write(i);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(" ");
+            }
+        }
+
         public int[,] PlayerBoard(int[,] board)
         {
             int[,] newBoard = new int[9, 9];
