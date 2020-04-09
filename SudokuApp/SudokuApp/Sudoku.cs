@@ -7,8 +7,67 @@ namespace SudokuApp
     class Sudoku
     {
 
+        public int Score(int[,]board, int[,] board2)
+        {
+            int score = 0;
+
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    if (board[i,j]==board2[i,j]) { score++; }
+                }
+            }
+
+            return score;
+        }
+        
+        public int[,] InputPlayer(int[,] board, int[,] boardForPrint, int[,] playerBoard)
+        {
+            begin:
+
+            Console.WriteLine("Write Column (space) Row (Space) Number between 1 and 9(1 2 3)");
+            string input;
+            input = Console.ReadLine();
+            string[] inputSplit = input.Split(" ");
+
+            int col;
+            int row;
+            int num;
+
+            try
+            {
+                bool resultRow = int.TryParse(inputSplit[0], out col);
+                bool resultCol = int.TryParse(inputSplit[1], out row);
+                bool resultNum = int.TryParse(inputSplit[2], out num);
+
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Console.WriteLine("Type only numbers");
+                goto begin;
+            }
+
+            row--;
+            col--;
+            
+            if (!(num >= 1 && num <=9)) { goto begin; }
+            if (playerBoard[row, col] != -1)
+            {
+                playerBoard[row, col] = num;
+            }
+            else
+            {
+                Console.WriteLine("index out of range");
+                goto begin;
+            }
+
+            return playerBoard;
+        }
+
         public void PrintBoard(int[,] board, int[,] boardForPrint, int[,] playerBoard)
         {
+            Console.Clear();
             string sepCol = "   ";
             string sepLin = " | ";
             int lng = sepCol.Length * 9;
@@ -56,13 +115,13 @@ namespace SudokuApp
 
         }
 
-        public void PrintElement(int x, int y, int[,] board, int[,] printForBoard, int[,] playerBoard)
+        public void PrintElement(int x, int y, int[,] board, int[,] boardForPrint, int[,] playerBoard)
         {
-            if (printForBoard[x,y] > 0 && printForBoard[x, y] < 9) 
+            if (boardForPrint[x,y] > 0 && boardForPrint[x, y] <= 9) 
             {
-                Console.Write(printForBoard[x,y]);
+                Console.Write(boardForPrint[x,y]);
             }
-            else if(playerBoard[x,y] > 0 && playerBoard[x, y] < 9)
+            else if(playerBoard[x,y] > 0 && playerBoard[x, y] <= 9)
             {
                 if (playerBoard[x, y] == board[x, y]) 
                 {                   
@@ -117,7 +176,7 @@ namespace SudokuApp
             {
                 for (int j = 0; j < 9; j++)
                 {
-                    if (board[i,j]==0) 
+                    if (board[i,j]!=0) 
                     {
                         newBoard[i, j] = -1;
                     }
